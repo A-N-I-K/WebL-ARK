@@ -4461,7 +4461,25 @@ module.exports = function whichTypedArray(value) {
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"available-typed-arrays":3,"es-abstract/helpers/callBound":8,"es-abstract/helpers/getOwnPropertyDescriptor":9,"foreach":11,"has-symbols":14,"is-typed-array":20}],26:[function(require,module,exports){
+(function (process){(function (){
 var Rcon = require("./node-rcon");
+
+var conn = new Rcon('192.168.0.196', 32330, 'quagganland');
+
+conn.on('auth', function() {
+	console.log("Authed!");
+
+}).on('response', function(str) {
+	console.log("Got response: " + str);
+
+}).on('end', function() {
+	console.log("Socket closed!");
+	process.exit();
+
+});
+
+conn.connect();
+
 c = 5
 
 /**
@@ -4473,7 +4491,8 @@ function add(a, b) {
 	return a + b + c
 
 }
-},{"./node-rcon":27}],27:[function(require,module,exports){
+}).call(this)}).call(this,require('_process'))
+},{"./node-rcon":27,"_process":21}],27:[function(require,module,exports){
 /*!
  * node-rcon
  * Copyright(c) 2012 Justin Li <j-li.net>
